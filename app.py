@@ -45,7 +45,7 @@ def welcome():
         f"/meat_data/<br/>"
     )
 
-@app.route("/emissions")
+@app.route("/emissions/")
 def getEmissions():
     """Return the MetaData for a given sample."""
     sel = [
@@ -90,7 +90,7 @@ class Beef(db.Model):
     TotalBeefConsumption = db.Column(db.Integer, nullable=True)
     BeefConsumptionPerCapita = db.Column(db.Integer)
 
-@app.route("/meat_data")
+@app.route("/meat_data/")
 def index2():
 
      """Return page."""
