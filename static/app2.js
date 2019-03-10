@@ -2,13 +2,13 @@
 d3.queue()
 //makes 2 requests for topojson file and emissions_data.csv
   .defer(d3.json, "//unpkg.com/world-atlas@1.1.4/world/50m.json")
-  .defer(d3.csv, "static/beef_dashboard_data3.csv", function(row) {
+  .defer(d3.json, "/meat_data", function(row) {
     return {
       continent: row.Continent,
       country: row.Country,
-      countryCode: row["Country Code"],
-      emissions: +row["Total Beef Consumption"],
-      emissionsPerCapita: +row["Beef Consumption Per Capita"],
+      countryCode: row["CountryCode"],
+      emissions: +row["TotalBeefConsumption"],
+      emissionsPerCapita: +row["BeefConsumptionPerCapita"],
       region: row.Region,
       year: +row.Year
     }
