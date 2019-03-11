@@ -42,7 +42,7 @@ function createMap(width, height) {
   
     var domains = {
       emissions: [0, 1000000000, 3000000000, 5000000000, 7000000000, 10000000000],
-      emissionsPerCapita: [0, 10, 20, 30, 40, 50, 60]
+      emissionsPerCapita: [0, 10, 20, 40, 50, 60]
     };
   
     var mapColorScale = d3.scaleLinear()
