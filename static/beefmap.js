@@ -38,7 +38,7 @@ function createMap(width, height) {
       d.properties = countries.find(c => c.year === year) || { country: name };
     });
   
-    var colors = ["#f1c40f", "#e67e22", "#e74c3c", "#c0392b"];
+    var colors = ["#efe409","#f1c40f", "#e67e22", "#e74c3c","#e74c3c", "#c0392b"];
   
     var domains = {
       emissions: [0, 1000000000, 3000000000, 5000000000, 7000000000, 10000000000],
@@ -84,4 +84,3 @@ function createMap(width, height) {
   function graphTitle(str) {
     return str.replace(/[A-Z]/g, c => " " + c.toLowerCase());
   }
-  
