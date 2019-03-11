@@ -30,22 +30,26 @@ class Emissions(db.Model):
   Emissions = db.Column(db.Integer, nullable=True)
   Emissions_Per_Capita=db.Column(db.Integer)
 
-
+class Beef(db.Model):
+    __tablename__ = "meat_data"
+    Country = db.Column(db.String, primary_key=True)
+    CountryCode = db.Column(db.String)
+    Continent = db.Column(db.String)
+    Region = db.Column(db.String, nullable=True)
+    Year = db.Column(db.Integer, nullable=True)
+    Population = db.Column(db.Integer, nullable=True)
+    TotalBeefConsumption = db.Column(db.Integer, nullable=True)
+    BeefConsumptionPerCapita = db.Column(db.Integer,nullable=True)
 
 
 @app.route("/")
 def index():
 # """Return the homepage."""
       return render_template("index.html")
-def welcome():
-    """List all available api routes."""
-    return (
-        f"Available Routes:<br/>"
-        f"/emissions/<br/>"
-        f"/meat_data/<br/>"
-    )
+# def welcome():
 
-@app.route("/emissions/")
+
+@app.route("/emissions")
 def getEmissions():
     """Return the MetaData for a given sample."""
     sel = [
@@ -79,23 +83,14 @@ def getEmissions():
     #print(emissions_list)
     return jsonify(emissions_list)
 
-class Beef(db.Model):
-    __tablename__ = "meat_data"
-    Country = db.Column(db.String, primary_key=True)
-    CountryCode = db.Column(db.String)
-    Continent = db.Column(db.String)
-    Region = db.Column(db.String, nullable=True)
-    Year = db.Column(db.Integer, nullable=True)
-    Population = db.Column(db.Integer, nullable=True)
-    TotalBeefConsumption = db.Column(db.Integer, nullable=True)
-    BeefConsumptionPerCapita = db.Column(db.Integer)
 
-@app.route("/meat_data/")
+
+@app.route("/meat_consumption")
 def index2():
+    """Return the homepage."""
+    return render_template("index2v2.html")
 
-     """Return page."""
-
-     return render_template("index2v2.html")
+@app.route("/meat_data")
 def getBeef():
    """Return the MetaData for a given sample."""
    sel = [
@@ -123,8 +118,10 @@ def getBeef():
         beef_metadata["Year"] = result[4]
         beef_metadata["Population"] = result[5]
         beef_metadata["TotalBeefConsumption"] = result[6]
-        beef_metadata["BeefPerCapita"] = result[7]
+        beef_metadata["BeefConsumptionPerCapita"] = result[7]
         beef_list.append(beef_metadata)
+
+       # print(beef_list)
    return jsonify(beef_list)
 
 
