@@ -2,19 +2,20 @@
 d3.queue()
 //makes 2 requests for topojson file and emissions_data.csv
   .defer(d3.json, "//unpkg.com/world-atlas@1.1.4/world/50m.json")
-  .defer(d3.json, "/meat_data", function(row) {
-    return {
-      continent: row.Continent,
-      country: row.Country,
-      countryCode: row["CountryCode"],
-      emissions: +row["TotalBeefConsumption"],
-      emissionsPerCapita: +row["BeefConsumptionPerCapita"],
-      region: row.Region,
-      year: +row.Year
-    }
-  })
+  .defer(d3.json, "/meat_data")
 // await to make sure fetch of all data is complete
   .await(function(error, mapData, data) {
+    data = data.map((row)=>{
+        return {
+          continent: row.Continent,
+          country: row.Country,
+          countryCode: ""+row.CountryCode,
+          emissions: row.TotalBeefConsumption,
+          emissionsPerCapita: row.BeefConsumptionPerCapita,
+          region: row.Region,
+          year: row.Year,
+        }
+      })
   //  if (error) throw error;
 //set variable for max and min year values
     var extremeYears = d3.extent(data, d => d.year);
@@ -75,7 +76,7 @@ d3.queue()
       var isArc = tgt.classed("arc");
       var dataType = d3.select("input:checked")
                        .property("value");
-      var units = dataType === "beef consumption" ? "thousand metric kgs" : "kg per capita";
+      var units = dataType === "emissions" ? "thousand metric kgs" : "kg per capita";
       var data;
       var percentage = "";
       if (isCountry) data = tgt.data()[0].properties;
